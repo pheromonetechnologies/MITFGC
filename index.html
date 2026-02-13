@@ -1,26 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MITFGC</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
-        h1 {
-            color: #333;
-            font-size: 4rem;
-        }
-    </style>
+    <title>PHEROMONE | Open Source Community</title>
+    <meta name="description" content="Pheromone - The Open Source Club of MITFGC. Innovate, Collaborate, Contribute.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <h1>MITFGC</h1>
+    <canvas id="bg-canvas"></canvas>
+
+    <div id="cursor"></div>
+    <div id="cursor-blur"></div>
+
+    <nav class="glass-nav">
+        <div class="logo">PHEROMONE<span class="dot">_</span></div>
+        <div class="nav-links">
+            <a href="#hero" class="active">Home</a>
+            <a href="#mission">Mission</a>
+            <a href="#projects">Projects</a>
+            <a href="#join">Join Us</a>
+        </div>
+        <div class="menu-btn">
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </nav>
+
+    <main>
+        <section id="hero">
+            <div class="hero-content">
+                <h2 class="glitch-text" data-text="INITIATING_PROTOCOL...">INITIATING_PROTOCOL...</h2>
+                <h1 class="main-title">PHEROMONE <span class="highlight">CLUB</span></h1>
+                <p class="tagline">WE BUILD. WE SHARE. WE INNOVATE. <br> THE OPEN SOURCE REVOLUTION STARTS HERE.</p>
+                <div class="hero-cta">
+                    <a href="#join" class="btn-primary">JOIN THE NETWORK</a>
+                    <a href="https://github.com" target="_blank" class="btn-secondary">VIEW GITHUB</a>
+                </div>
+            </div>
+
+            <div class="scroll-indicator">
+                <span>SCROLL_DOWN</span>
+                <div class="arrow"></div>
+            </div>
+        </section>
+
+        <section id="mission">
+            <div class="section-header">
+                <span class="section-number">01</span>
+                <h3>OUR MISSION</h3>
+            </div>
+            <div class="about-content">
+                <p class="reveal-text">Code is the new currency. At Pheromone, we believe in the power of Open Source.
+                    We are a collective of hackers, designers, and dreamers pushing the boundaries of what's possible in
+                    tech.</p>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="count" data-target="150">0</span>
+                        <span class="label">Active Members</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="count" data-target="25">0</span>
+                        <span class="label">Completed Projects</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="count" data-target="12">0</span>
+                        <span class="label">Workshops/Year</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="projects">
+            <div class="section-header">
+                <span class="section-number">02</span>
+                <h3>ACTIVE PROJECTS</h3>
+            </div>
+            <div class="course-list">
+                <div class="course-item">
+                    <div class="course-info">
+                        <h4>PROJECT_NEBULA</h4>
+                        <p>A decentralized cloud storage solution built on IPFS.</p>
+                    </div>
+                    <div class="course-icon"></div>
+                </div>
+                <div class="course-item">
+                    <div class="course-info">
+                        <h4>AUTO_RICE</h4>
+                        <p>Automated Linux environment setup script for Arch learners.</p>
+                    </div>
+                    <div class="course-icon"></div>
+                </div>
+                <div class="course-item">
+                    <div class="course-info">
+                        <h4>OPEN_CAMPUS</h4>
+                        <p>Student productivity & navigation app for the college.</p>
+                    </div>
+                    <div class="course-icon"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="join">
+            <div class="section-header">
+                <span class="section-number">03</span>
+                <h3>INITIALIZE CONNECTION</h3>
+            </div>
+            <div class="contact-content">
+                <p>Don't just use software. Build it. Be part of the change.</p>
+                <a href="mailto:contribute@pheromone.club" class="email-link">join@pheromone.club</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 PHEROMONE CLUB. OPEN SOURCE FOREVER.</p>
+            <div class="socials">
+                <a href="#">INSTAGRAM</a>
+                <a href="#">GITHUB</a>
+                <a href="#">DISCORD</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/background.js"></script>
+    <script src="js/main.js"></script>
 </body>
+
 </html>
