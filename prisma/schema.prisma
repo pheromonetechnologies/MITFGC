@@ -1,0 +1,254 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// USER MANAGEMENT & AUTHENTICATION
+// ============================================
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  passwordHash  String
+  role          Role      @default(VIEWER)
+  image         String?
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  createdEvents  Event[]
+  createdNotices Notice[]
+  createdPages   Page[]
+
+  @@index([email])
+  @@index([role])
+}
+
+enum Role {
+  SUPER_ADMIN // Full access to everything
+  ADMIN       // Can manage content and users
+  EDITOR      // Can create and edit content
+  VIEWER      // Read-only access to admin panel
+}
+
+// ============================================
+// ACADEMIC STRUCTURE
+// ============================================
+
+model Department {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  slug        String   @unique
+  description String?  @db.Text
+  hod         String? // Head of Department name
+  phone       String?
+  email       String?
+  image       String? // Department image/logo
+  sortOrder   Int      @default(0)
+  published   Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  courses Course[]
+  faculty Faculty[]
+
+  @@index([slug])
+  @@index([published])
+}
+
+model Course {
+  id           String   @id @default(cuid())
+  title        String
+  slug         String   @unique
+  duration     String // "4 Years", "3 Years", "2 Years"
+  intake       Int? // Number of seats
+  description  String   @db.Text
+  eligibility  String?  @db.Text
+  syllabus     String? // URL to PDF
+  fees         String? // Fee structure
+  image        String? // Course thumbnail
+  departmentId String
+  department   Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  published    Boolean    @default(false)
+  featured     Boolean    @default(false)
+  sortOrder    Int        @default(0)
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  // Relations
+  faculty CourseFaculty[]
+
+  @@index([slug])
+  @@index([departmentId])
+  @@index([published, featured])
+}
+
+model Faculty {
+  id             String   @id @default(cuid())
+  name           String
+  slug           String   @unique
+  designation    String // "Professor", "Associate Professor", etc.
+  email          String?
+  phone          String?
+  image          String?
+  bio            String?  @db.Text
+  qualifications String?  @db.Text
+  specialization String?
+  experience     String? // "10 Years", "15+ Years"
+  departmentId   String
+  department     Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+  published      Boolean    @default(true)
+  sortOrder      Int        @default(0)
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  // Relations
+  courses CourseFaculty[]
+
+  @@index([slug])
+  @@index([departmentId])
+  @@index([published])
+}
+
+// Many-to-many relationship between Course and Faculty
+model CourseFaculty {
+  id        String   @id @default(cuid())
+  courseId  String
+  facultyId String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  faculty   Faculty  @relation(fields: [facultyId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  @@unique([courseId, facultyId])
+  @@index([courseId])
+  @@index([facultyId])
+}
+
+// ============================================
+// CONTENT MANAGEMENT
+// ============================================
+
+model Event {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  description String    @db.Text
+  venue       String?
+  eventDate   DateTime
+  endDate     DateTime?
+  image       String?
+  published   Boolean   @default(false)
+  featured    Boolean   @default(false)
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+  @@index([eventDate])
+  @@index([published, featured])
+  @@index([authorId])
+}
+
+model Notice {
+  id          String    @id @default(cuid())
+  title       String
+  content     String    @db.Text
+  attachment  String? // URL to PDF/file
+  priority    Priority  @default(NORMAL)
+  published   Boolean   @default(false)
+  expiresAt   DateTime?
+  authorId    String
+  author      User      @relation(fields: [authorId], references: [id])
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([createdAt])
+  @@index([published, priority])
+  @@index([expiresAt])
+  @@index([authorId])
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model GalleryImage {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  imageUrl    String
+  thumbnail   String?
+  category    String? // "Events", "Campus", "Sports", "Cultural", etc.
+  tags        String[] // Array of tags for filtering
+  published   Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  uploadedAt  DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([category])
+  @@index([published])
+}
+
+model Page {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  content     String   @db.Text // Rich text HTML
+  description String? // Meta description for SEO
+  published   Boolean  @default(false)
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([slug])
+  @@index([published])
+  @@index([authorId])
+}
+
+// ============================================
+// CONTACT & INQUIRIES
+// ============================================
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String?
+  subject   String
+  message   String   @db.Text
+  responded Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([responded])
+  @@index([createdAt])
+}
+
+// ============================================
+// SETTINGS & CONFIGURATION
+// ============================================
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  type      String // "text", "number", "boolean", "json"
+  updatedAt DateTime @updatedAt
+
+  @@index([key])
+}
+
