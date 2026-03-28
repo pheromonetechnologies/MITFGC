@@ -3,6 +3,8 @@ import { db } from "@/lib/db";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StatsBar } from "@/components/shared/StatsBar";
+import { HeroSection } from "@/components/home/HeroSection";
+import { GsapReveal, GsapCard } from "@/components/motion/GsapReveal";
 
 const staticPrograms = [
   {
@@ -100,68 +102,10 @@ export default async function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section — Campus Photo Overlay */}
-      <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-        {/* Background: campus image with navy gradient overlay */}
-        <div className="absolute inset-0 bg-[url('/images/hero-clg.png')] bg-cover bg-center" />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#003B7C]/92 via-[#002854]/88 to-[#001a3a]/95" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(230,126,34,0.12),transparent_60%)]" />
+      {/* Hero — GSAP animated */}
+      <HeroSection />
 
-        {/* Floating decorative shapes */}
-        <div className="absolute top-20 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl animate-[float_6s_ease-in-out_infinite]" />
-        <div className="absolute bottom-20 left-10 w-96 h-96 bg-secondary/8 rounded-full blur-3xl animate-[float_8s_ease-in-out_infinite_1s]" />
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-4xl">
-            <ScrollReveal>
-              <div className="inline-flex items-center gap-2.5 px-5 py-2.5 bg-white/10 backdrop-blur-md rounded-full mb-8 border border-white/15">
-                <div className="w-2 h-2 bg-secondary rounded-full animate-pulse" />
-                <span className="text-sm font-medium text-white/90 tracking-wide">
-                  NAAC A Grade | UGC &amp; AICTE Approved
-                </span>
-              </div>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.1}>
-              <h1 className="text-display text-white mb-6">
-                Shape Your Future at
-                <span className="block text-accent mt-2">MIT First Grade College</span>
-              </h1>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.2}>
-              <p className="text-xl md:text-2xl text-white/80 mb-4 font-light max-w-2xl leading-relaxed">
-                Discover one of the finest education institutions in Mysuru
-              </p>
-              <p className="text-base text-white/60 mb-10 max-w-xl">
-                Affiliated to University of Mysore | Established 2009 | Vidyaranyapura, Mysuru
-              </p>
-            </ScrollReveal>
-
-            <ScrollReveal delay={0.3}>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Link
-                  href="/programs"
-                  className="group px-8 py-4 bg-accent text-white rounded-xl font-bold hover:bg-accent-dark transition-all duration-300 flex items-center gap-3 shadow-[0_8px_30px_rgba(230,126,34,0.3)] hover:shadow-[0_12px_40px_rgba(230,126,34,0.4)] hover:-translate-y-1"
-                >
-                  Explore Programs
-                  <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-                <Link
-                  href="/contact"
-                  className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-semibold border border-white/20 hover:bg-white/20 transition-all duration-300"
-                >
-                  Visit Campus
-                </Link>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Bar — Animated Counters */}
+      {/* Stats Bar — GSAP count-up */}
       <StatsBar />
 
       {/* Notice Ticker */}
@@ -205,7 +149,7 @@ export default async function HomePage() {
             subtitle="Join a community committed to academic excellence and holistic development"
           />
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <GsapReveal stagger staggerSelector=".why-card" staggerAmount={0.15} className="grid md:grid-cols-3 gap-8">
             {[
               {
                 icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
@@ -226,19 +170,17 @@ export default async function HomePage() {
                 accent: "bg-secondary/10 text-secondary",
               },
             ].map((feature, i) => (
-              <ScrollReveal key={i} delay={i * 0.1}>
-                <div className="premium-card p-8 h-full group cursor-pointer">
-                  <div className={`w-16 h-16 ${feature.accent} rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500`}>
-                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={feature.icon} />
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-bold mb-3 text-foreground font-serif">{feature.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+              <GsapCard key={i} className="why-card premium-card p-8 h-full cursor-pointer">
+                <div className={`card-icon w-16 h-16 ${feature.accent} rounded-2xl flex items-center justify-center mb-6`}>
+                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={feature.icon} />
+                  </svg>
                 </div>
-              </ScrollReveal>
+                <h3 className="text-xl font-bold mb-3 text-foreground font-serif">{feature.title}</h3>
+                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+              </GsapCard>
             ))}
-          </div>
+          </GsapReveal>
         </div>
       </section>
 
