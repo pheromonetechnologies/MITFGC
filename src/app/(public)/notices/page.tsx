@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import { db } from "@/lib/db";
 import { ScrollReveal } from "@/components/motion/ScrollReveal";
-import { SectionHeader } from "@/components/shared/SectionHeader";
-import { Badge } from "@/components/ui/badge";
-import { formatDate } from "@/lib/utils";
+import { NoticesList } from "./notices-list";
 
 export const metadata: Metadata = {
   title: "Notices - MIT First Grade College",
@@ -11,7 +9,7 @@ export const metadata: Metadata = {
     "Important notices, circulars, and announcements from MIT First Grade College, Mysuru.",
 };
 
-interface NoticeItem {
+export interface NoticeItem {
   id: string;
   title: string;
   content: string;
@@ -59,13 +57,6 @@ const staticNotices: NoticeItem[] = [
   },
 ];
 
-const priorityConfig: Record<string, { label: string; className: string }> = {
-  URGENT: { label: "Urgent", className: "bg-red-100 text-red-700" },
-  HIGH: { label: "High", className: "bg-orange-100 text-orange-700" },
-  NORMAL: { label: "Normal", className: "bg-blue-100 text-blue-700" },
-  LOW: { label: "Low", className: "bg-gray-100 text-gray-600" },
-};
-
 async function getNotices(): Promise<NoticeItem[] | null> {
   try {
     const notices = await db.notice.findMany({
@@ -89,86 +80,70 @@ async function getNotices(): Promise<NoticeItem[] | null> {
 export default async function NoticesPage() {
   const notices = (await getNotices()) ?? staticNotices;
 
+  const urgentCount = notices.filter((n) => n.priority === "URGENT").length;
+  const highCount = notices.filter((n) => n.priority === "HIGH").length;
+  const normalCount = notices.filter((n) => n.priority === "NORMAL").length;
+  const lowCount = notices.filter((n) => n.priority === "LOW").length;
+
   return (
     <div className="min-h-screen bg-background">
       {/* Hero */}
-      <section className="bg-gradient-to-br from-primary to-primary-dark text-white py-20 px-6 relative overflow-hidden">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#003B7C] via-[#004fa3] to-[#003B7C] text-white py-24 px-6">
         <div className="absolute inset-0 bg-[url('/patterns/grid.svg')] opacity-5" />
+        <div className="absolute -top-20 -right-20 w-96 h-96 rounded-full bg-white/5 blur-3xl" />
+        <div className="absolute -bottom-20 -left-20 w-80 h-80 rounded-full bg-[#E67E22]/10 blur-3xl" />
+
         <div className="container mx-auto max-w-4xl text-center relative">
           <ScrollReveal>
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">Notices</h1>
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">
-              Important announcements, circulars, and updates from the college
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 text-sm font-medium mb-6">
+              <span className="w-2 h-2 rounded-full bg-[#E67E22] animate-pulse" />
+              Official Communications
+            </div>
+            <h1 className="font-serif text-5xl md:text-7xl font-bold mb-6 leading-tight">
+              Notices &amp;{" "}
+              <span className="text-[#E67E22]">Circulars</span>
+            </h1>
+            <p className="text-xl text-white/80 max-w-2xl mx-auto leading-relaxed">
+              Important announcements, circulars, and updates from the college administration
             </p>
+          </ScrollReveal>
+
+          {/* Priority counts */}
+          <ScrollReveal delay={0.15}>
+            <div className="flex flex-wrap justify-center gap-3 mt-10">
+              {urgentCount > 0 && (
+                <div className="flex items-center gap-2 bg-red-500/20 border border-red-400/30 rounded-full px-4 py-1.5">
+                  <span className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                  <span className="text-sm font-semibold text-red-200">{urgentCount} Urgent</span>
+                </div>
+              )}
+              {highCount > 0 && (
+                <div className="flex items-center gap-2 bg-orange-500/20 border border-orange-400/30 rounded-full px-4 py-1.5">
+                  <span className="w-2 h-2 rounded-full bg-orange-400" />
+                  <span className="text-sm font-semibold text-orange-200">{highCount} High</span>
+                </div>
+              )}
+              {normalCount > 0 && (
+                <div className="flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-1.5">
+                  <span className="w-2 h-2 rounded-full bg-blue-400" />
+                  <span className="text-sm font-semibold text-blue-200">{normalCount} Normal</span>
+                </div>
+              )}
+              {lowCount > 0 && (
+                <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5">
+                  <span className="w-2 h-2 rounded-full bg-white/50" />
+                  <span className="text-sm font-semibold text-white/70">{lowCount} Low</span>
+                </div>
+              )}
+            </div>
           </ScrollReveal>
         </div>
       </section>
 
-      {/* Notices List */}
-      <section className="py-20 px-6">
+      {/* Notices list with filter */}
+      <section className="py-16 px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="space-y-4">
-            {notices.map((notice, i) => {
-              const config = priorityConfig[notice.priority] ?? priorityConfig.NORMAL;
-              return (
-                <ScrollReveal key={notice.id} delay={i * 0.05}>
-                  <div
-                    className={`rounded-xl border bg-card p-6 transition-shadow hover:shadow-md ${
-                      notice.priority === "URGENT"
-                        ? "border-red-200 bg-red-50/30"
-                        : "border-border"
-                    }`}
-                  >
-                    <div className="flex flex-wrap items-start gap-3 mb-3">
-                      <span
-                        className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${config.className}`}
-                      >
-                        {config.label}
-                      </span>
-                      <span className="text-xs text-muted-foreground ml-auto">
-                        {formatDate(notice.createdAt)}
-                      </span>
-                    </div>
-                    <h3 className="text-lg font-bold text-foreground mb-2">
-                      {notice.title}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {notice.content}
-                    </p>
-                    {notice.attachment && (
-                      <a
-                        href={notice.attachment}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 mt-4 text-sm text-primary font-semibold hover:underline"
-                      >
-                        <svg
-                          className="w-4 h-4"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"
-                          />
-                        </svg>
-                        Download Attachment
-                      </a>
-                    )}
-                  </div>
-                </ScrollReveal>
-              );
-            })}
-          </div>
-
-          {notices.length === 0 && (
-            <p className="text-center text-muted-foreground py-12">
-              No notices available at this time.
-            </p>
-          )}
+          <NoticesList notices={notices} />
         </div>
       </section>
     </div>
