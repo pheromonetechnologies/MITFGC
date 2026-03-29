@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Facebook, Instagram, Youtube } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
@@ -27,6 +27,18 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
   const navRef = useRef<HTMLElement>(null);
+
+  // Body scroll lock when drawer is open
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [open]);
 
   useGSAP(() => {
     // Emil: strong ease-out, 50ms stagger, never from scale(0)
@@ -107,33 +119,91 @@ export default function Navbar() {
             className="lg:hidden p-2.5 rounded-lg hover:bg-white/10 transition-colors"
             aria-label="Toggle menu"
           >
-            {open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <Menu className="w-6 h-6" />
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
-      <div className={`lg:hidden overflow-hidden transition-all duration-400 ease-in-out ${open ? "max-h-[600px] opacity-100" : "max-h-0 opacity-0"}`}>
-        <div className="px-4 py-3 space-y-1 bg-primary-dark/90 backdrop-blur-xl border-t border-white/10">
-          {navLinks.map((link) => (
+      {/* Mobile drawer overlay */}
+      <div
+        className={`lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-40 transition-opacity duration-300 ${
+          open ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setOpen(false)}
+        aria-hidden="true"
+      />
+
+      {/* Mobile drawer panel */}
+      <div
+        className={`lg:hidden fixed top-0 right-0 h-full w-[300px] max-w-[85vw] bg-gradient-to-b from-[#002854] to-[#001a3a] z-50 flex flex-col shadow-2xl ${
+          open ? "translate-x-0" : "translate-x-full"
+        }`}
+        style={{ transition: "transform 400ms cubic-bezier(0.32, 0.72, 0, 1)" }}
+      >
+        {/* Drawer header */}
+        <div className="flex items-center justify-between px-5 py-4 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <div className="w-9 h-9 rounded-xl overflow-hidden border border-white/20 flex-shrink-0">
+              <Image src="/images/logo.jpeg" alt="MIT FGC Logo" width={36} height={36} className="w-full h-full object-cover" />
+            </div>
+            <div>
+              <div className="font-bold text-sm leading-tight font-serif text-white">MIT FGC</div>
+              <div className="text-[9px] text-white/50 tracking-wider uppercase">First Grade College</div>
+            </div>
+          </div>
+          <button
+            onClick={() => setOpen(false)}
+            className="p-2 rounded-lg hover:bg-white/10"
+            style={{ transition: "background-color 200ms ease" }}
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5 text-white/80" />
+          </button>
+        </div>
+
+        {/* Drawer nav links */}
+        <div className="flex-1 overflow-y-auto px-4 py-5 space-y-1">
+          {navLinks.map((link, i) => (
             <Link
               key={link.href}
               href={link.href}
-              className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                pathname === link.href ? "bg-white/15 text-white" : "text-white/75 hover:bg-white/10"
+              className={`flex items-center px-4 py-3 rounded-lg text-sm font-medium ${
+                pathname === link.href
+                  ? "bg-white/10 text-white border-l-[3px] border-accent"
+                  : "text-white/70 hover:bg-white/5 hover:text-white border-l-[3px] border-transparent"
               }`}
+              style={{
+                transition: "background-color 200ms ease, color 200ms ease",
+                animationDelay: open ? `${i * 50}ms` : "0ms",
+              }}
               onClick={() => setOpen(false)}
             >
               {link.label}
             </Link>
           ))}
+        </div>
+
+        {/* Drawer footer */}
+        <div className="px-5 pb-6 pt-3 border-t border-white/10 space-y-5">
           <Link
             href="/admission"
-            className="block px-4 py-3 bg-accent text-white rounded-lg text-sm font-bold text-center mt-3 shadow-lg"
+            className="block w-full py-3 bg-accent text-white rounded-xl text-sm font-bold text-center shadow-[0_4px_15px_rgba(230,126,34,0.3)] hover:bg-accent-dark"
+            style={{ transition: "background-color 200ms ease" }}
             onClick={() => setOpen(false)}
           >
             Apply Now
           </Link>
+          <div className="flex items-center justify-center gap-4">
+            <a href="#" className="p-2 rounded-lg text-white/50 hover:text-white hover:bg-white/10" style={{ transition: "color 200ms ease, background-color 200ms ease" }} aria-label="Facebook">
+              <Facebook className="w-5 h-5" />
+            </a>
+            <a href="#" className="p-2 rounded-lg text-white/50 hover:text-white hover:bg-white/10" style={{ transition: "color 200ms ease, background-color 200ms ease" }} aria-label="Instagram">
+              <Instagram className="w-5 h-5" />
+            </a>
+            <a href="#" className="p-2 rounded-lg text-white/50 hover:text-white hover:bg-white/10" style={{ transition: "color 200ms ease, background-color 200ms ease" }} aria-label="YouTube">
+              <Youtube className="w-5 h-5" />
+            </a>
+          </div>
         </div>
       </div>
     </nav>

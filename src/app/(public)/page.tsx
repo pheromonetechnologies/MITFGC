@@ -5,6 +5,8 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { StatsBar } from "@/components/shared/StatsBar";
 import { HeroSection } from "@/components/home/HeroSection";
 import { GsapReveal, GsapCard } from "@/components/motion/GsapReveal";
+import { Testimonials } from "@/components/home/Testimonials";
+import { CampusLife } from "@/components/home/CampusLife";
 
 const staticPrograms = [
   {
@@ -294,6 +296,12 @@ export default async function HomePage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* Testimonials */}
+      <Testimonials />
+
+      {/* Campus Life */}
+      <CampusLife />
 
       {/* Call to Action */}
       <section className="relative py-24 px-6">
