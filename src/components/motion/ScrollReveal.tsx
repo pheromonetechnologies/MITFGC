@@ -52,9 +52,9 @@ export function ScrollReveal({
       initial={initial}
       animate={animate}
       transition={{
-        duration: prefersReduced ? 0.3 : duration,
+        duration: prefersReduced ? 0.15 : duration,
         delay,
-        ease: [0.22, 1, 0.36, 1], // custom ease-out (Emil Kowalski style)
+        ease: [0.23, 1, 0.32, 1], // Emil: cubic-bezier(0.23, 1, 0.32, 1) strong ease-out
       }}
     >
       {children}

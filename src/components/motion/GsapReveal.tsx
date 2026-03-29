@@ -39,6 +39,7 @@ export function GsapReveal({
       ? gsap.utils.toArray(ref.current.querySelectorAll(staggerSelector))
       : [ref.current];
 
+    // Emil: strong custom ease-out, keep stagger 30-80ms
     gsap.from(targets, {
       y,
       x,
@@ -46,7 +47,7 @@ export function GsapReveal({
       duration,
       stagger: stagger ? staggerAmount : 0,
       delay,
-      ease: "power3.out",
+      ease: "cubic-bezier(0.23, 1, 0.32, 1)",
       scrollTrigger: {
         trigger: ref.current,
         start: "top 82%",
@@ -72,13 +73,17 @@ export function GsapCard({ children, className }: { children: ReactNode; classNa
 
     const icon = el.querySelector(".card-icon");
 
+    // Emil: specify exact props, 200ms max, strong ease-out, hover only on pointer devices
+    const isPointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (!isPointer) return;
+
     const onEnter = () => {
-      gsap.to(el, { y: -8, boxShadow: "0 20px 40px rgba(0,59,124,0.12)", duration: 0.3, ease: "power2.out" });
-      if (icon) gsap.to(icon, { scale: 1.12, rotate: 6, duration: 0.3, ease: "back.out(2)" });
+      gsap.to(el, { y: -8, boxShadow: "0 20px 40px rgba(0,59,124,0.12)", duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
+      if (icon) gsap.to(icon, { scale: 1.1, rotate: 5, duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
     };
     const onLeave = () => {
-      gsap.to(el, { y: 0, boxShadow: "0 4px 20px rgba(0,59,124,0.06)", duration: 0.3, ease: "power2.out" });
-      if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.3 });
+      gsap.to(el, { y: 0, boxShadow: "0 4px 20px rgba(0,59,124,0.06)", duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
+      if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.2 });
     };
 
     el.addEventListener("mouseenter", onEnter);

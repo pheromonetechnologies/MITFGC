@@ -12,14 +12,17 @@ export function HeroSection() {
   const heroRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+    // Emil: strong ease-out curve, clip-path from bottom (not scale(0))
+    // Marketing animation so durations can be longer than 300ms UI rule
+    const easeOut = "cubic-bezier(0.23, 1, 0.32, 1)";
+    const tl = gsap.timeline({ defaults: { ease: easeOut } });
 
-    tl.from(".hero-badge", { y: 20, opacity: 0, duration: 0.6 })
-      .from(".hero-line1", { y: 60, opacity: 0, duration: 0.9, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }, "-=0.3")
-      .from(".hero-line2", { y: 60, opacity: 0, duration: 0.9, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }, "-=0.6")
-      .from(".hero-sub", { y: 20, opacity: 0, duration: 0.6 }, "-=0.4")
-      .from(".hero-meta", { y: 15, opacity: 0, duration: 0.5 }, "-=0.3")
-      .from(".hero-btn", { y: 20, opacity: 0, duration: 0.6, stagger: 0.15 }, "-=0.3");
+    tl.from(".hero-badge", { y: 16, opacity: 0, duration: 0.5 })
+      .from(".hero-line1", { y: 50, opacity: 0, duration: 0.75, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }, "-=0.25")
+      .from(".hero-line2", { y: 50, opacity: 0, duration: 0.75, clipPath: "polygon(0 100%, 100% 100%, 100% 100%, 0 100%)" }, "-=0.55")
+      .from(".hero-sub", { y: 16, opacity: 0, duration: 0.5 }, "-=0.35")
+      .from(".hero-meta", { y: 12, opacity: 0, duration: 0.4 }, "-=0.25")
+      .from(".hero-btn", { y: 16, opacity: 0, duration: 0.45, stagger: 0.05 }, "-=0.25"); // Emil: 50ms stagger
 
     // Parallax on hero bg
     gsap.to(".hero-bg", {

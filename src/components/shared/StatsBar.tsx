@@ -18,13 +18,13 @@ export function StatsBar() {
   const containerRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    // Icons bounce in
+    // Icons bounce in — Emil: never from scale(0), start from 0.85
     gsap.from(".stat-icon", {
-      scale: 0,
+      scale: 0.85,
       opacity: 0,
-      duration: 0.7,
-      stagger: 0.12,
-      ease: "back.out(1.7)",
+      duration: 0.45,
+      stagger: 0.06, // Emil: 30-80ms between items
+      ease: "back.out(1.4)",
       scrollTrigger: { trigger: containerRef.current, start: "top 85%", once: true },
     });
 

@@ -29,30 +29,20 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
 
   useGSAP(() => {
-    // Stagger nav items entrance on mount
+    // Emil: strong ease-out, 50ms stagger, never from scale(0)
+    const easeOut = "cubic-bezier(0.23, 1, 0.32, 1)";
+
+    gsap.from(".nav-logo", { x: -16, opacity: 0, duration: 0.45, ease: easeOut });
     gsap.from(".nav-item", {
-      y: -16,
+      y: -12,
       opacity: 0,
-      duration: 0.5,
-      stagger: 0.06,
-      ease: "power3.out",
-      delay: 0.2,
+      duration: 0.4,
+      stagger: 0.04, // 40ms — within Emil's 30-80ms range
+      ease: easeOut,
+      delay: 0.15,
     });
-
-    gsap.from(".nav-logo", {
-      x: -20,
-      opacity: 0,
-      duration: 0.6,
-      ease: "power3.out",
-    });
-
-    gsap.from(".nav-apply-btn", {
-      scale: 0.85,
-      opacity: 0,
-      duration: 0.5,
-      ease: "back.out(1.7)",
-      delay: 0.7,
-    });
+    // Emil: scale from 0.9 not 0
+    gsap.from(".nav-apply-btn", { scale: 0.9, opacity: 0, duration: 0.35, ease: easeOut, delay: 0.55 });
 
     // Scroll-based shrink
     ScrollTrigger.create({
