@@ -65,14 +65,14 @@ export function StatsBar() {
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative bg-gradient-to-r from-primary-dark via-primary to-primary-dark text-white">
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(230,126,34,0.08),transparent_70%)]" />
+    <section ref={containerRef} className="relative bg-gradient-to-r from-[#0F172A] via-[#0D9488]/10 to-[#0F172A] text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(20,184,166,0.08),transparent_70%)]" />
       <div className="container mx-auto px-6 py-10 relative">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
           {stats.map((stat, i) => (
             <div key={i} className="text-center">
               <div className="stat-icon w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-3">
-                <svg className="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-6 h-6 text-[#14B8A6]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={stat.icon} />
                 </svg>
               </div>

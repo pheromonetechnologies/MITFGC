@@ -78,11 +78,11 @@ export function GsapCard({ children, className }: { children: ReactNode; classNa
     if (!isPointer) return;
 
     const onEnter = () => {
-      gsap.to(el, { y: -8, boxShadow: "0 20px 40px rgba(0,59,124,0.12)", duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
+      gsap.to(el, { y: -8, boxShadow: "0 20px 40px rgba(13,148,136,0.12)", duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
       if (icon) gsap.to(icon, { scale: 1.1, rotate: 5, duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
     };
     const onLeave = () => {
-      gsap.to(el, { y: 0, boxShadow: "0 4px 20px rgba(0,59,124,0.06)", duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
+      gsap.to(el, { y: 0, boxShadow: "0 4px 20px rgba(13,148,136,0.06)", duration: 0.2, ease: "cubic-bezier(0.23, 1, 0.32, 1)" });
       if (icon) gsap.to(icon, { scale: 1, rotate: 0, duration: 0.2 });
     };
 

@@ -59,8 +59,8 @@ function StarIcon() {
     >
       <path
         d="M10 1L12.39 6.84L18.66 7.27L13.83 11.46L15.39 17.64L10 14.4L4.61 17.64L6.17 11.46L1.34 7.27L7.61 6.84L10 1Z"
-        fill="#E67E22"
-        stroke="#E67E22"
+        fill="#F59E0B"
+        stroke="#F59E0B"
         strokeWidth="0.5"
       />
     </svg>
@@ -85,8 +85,8 @@ export function Testimonials() {
     <section className="relative overflow-hidden bg-gray-50 py-20 sm:py-28">
       {/* Background decoration */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-[#003B7C]/5 blur-3xl" />
-        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-[#E67E22]/5 blur-3xl" />
+        <div className="absolute -right-40 -top-40 h-80 w-80 rounded-full bg-[#0F172A]/5 blur-3xl" />
+        <div className="absolute -bottom-40 -left-40 h-80 w-80 rounded-full bg-[#F59E0B]/5 blur-3xl" />
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -97,12 +97,12 @@ export function Testimonials() {
           transition={{ duration: 0.6, ease: easing }}
           className="mb-16 text-center"
         >
-          <span className="mb-3 inline-block rounded-full bg-[#003B7C]/10 px-4 py-1.5 text-sm font-medium text-[#003B7C]">
+          <span className="mb-3 inline-block rounded-full bg-[#0D9488]/10 px-4 py-1.5 text-sm font-medium text-[#0D9488]">
             Voices of MIT FGC
           </span>
           <h2 className="font-serif text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:text-5xl">
             Inspiring Words &{" "}
-            <span className="text-[#003B7C]">Testimonials</span>
+            <span className="text-[#0D9488]">Testimonials</span>
           </h2>
         </motion.div>
 
@@ -116,9 +116,9 @@ export function Testimonials() {
             className="group relative overflow-hidden rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-900/5 sm:p-10"
           >
             {/* Gradient accent bar */}
-            <div className="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-[#003B7C] via-[#E67E22] to-[#10B981]" />
+            <div className="absolute left-0 top-0 h-full w-1.5 bg-gradient-to-b from-[#0D9488] via-[#F59E0B] to-[#4F46E5]" />
 
-            <QuoteIcon className="mb-6 text-[#003B7C]/15" />
+            <QuoteIcon className="mb-6 text-[#0D9488]/15" />
 
             <blockquote className="mb-8 text-lg leading-relaxed text-gray-700 sm:text-xl">
               &ldquo;At MIT First Grade College, we are committed to nurturing
@@ -128,14 +128,14 @@ export function Testimonials() {
             </blockquote>
 
             <div className="flex items-center gap-4">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#003B7C] to-[#003B7C]/70 text-lg font-bold text-white">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-[#0D9488] to-[#0D9488]/70 text-lg font-bold text-white">
                 AK
               </div>
               <div>
                 <p className="font-serif text-lg font-semibold text-gray-900">
                   Dr. Arvind Kumar
                 </p>
-                <p className="text-sm text-[#003B7C]">Principal, MIT FGC</p>
+                <p className="text-sm text-[#0D9488]">Principal, MIT FGC</p>
               </div>
             </div>
 
@@ -143,7 +143,7 @@ export function Testimonials() {
             <style jsx>{`
               @media (hover: hover) {
                 .group:hover {
-                  box-shadow: 0 20px 40px -12px rgba(0, 59, 124, 0.12);
+                  box-shadow: 0 20px 40px -12px rgba(13, 148, 136, 0.12);
                 }
               }
             `}</style>
@@ -158,10 +158,10 @@ export function Testimonials() {
             className="relative overflow-hidden rounded-2xl bg-white p-8 shadow-lg ring-1 ring-gray-900/5 sm:p-10"
           >
             {/* Gradient accent bar */}
-            <div className="absolute right-0 top-0 h-full w-1.5 bg-gradient-to-b from-[#10B981] via-[#E67E22] to-[#003B7C]" />
+            <div className="absolute right-0 top-0 h-full w-1.5 bg-gradient-to-b from-[#4F46E5] via-[#F59E0B] to-[#0D9488]" />
 
             <div className="mb-6 flex items-center justify-between">
-              <span className="text-sm font-medium uppercase tracking-wider text-[#10B981]">
+              <span className="text-sm font-medium uppercase tracking-wider text-[#14B8A6]">
                 Student Testimonials
               </span>
               <div className="flex gap-2">
@@ -172,7 +172,7 @@ export function Testimonials() {
                     aria-label={`Show testimonial ${i + 1}`}
                     className={`h-2.5 rounded-full transition-all duration-300 ${
                       i === active
-                        ? "w-8 bg-[#003B7C]"
+                        ? "w-8 bg-[#0D9488]"
                         : "w-2.5 bg-gray-300 hover:bg-gray-400"
                     }`}
                   />
@@ -189,7 +189,7 @@ export function Testimonials() {
                   exit={{ opacity: 0, scale: 0.95, y: -10 }}
                   transition={{ duration: 0.4, ease: easing }}
                 >
-                  <QuoteIcon className="mb-4 text-[#E67E22]/15" />
+                  <QuoteIcon className="mb-4 text-[#F59E0B]/15" />
 
                   <div className="mb-4 flex gap-1">
                     {Array.from({ length: 5 }).map((_, i) => (
@@ -202,7 +202,7 @@ export function Testimonials() {
                   </blockquote>
 
                   <div className="flex items-center gap-4">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#10B981] to-[#10B981]/70 text-sm font-bold text-white">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#14B8A6] to-[#14B8A6]/70 text-sm font-bold text-white">
                       {t.name
                         .split(" ")
                         .map((n) => n[0])

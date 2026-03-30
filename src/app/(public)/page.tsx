@@ -7,6 +7,7 @@ import { HeroSection } from "@/components/home/HeroSection";
 import { GsapReveal, GsapCard } from "@/components/motion/GsapReveal";
 import { Testimonials } from "@/components/home/Testimonials";
 import { CampusLife } from "@/components/home/CampusLife";
+import { WhyChooseUs } from "@/components/home/WhyChooseUs";
 
 const staticPrograms = [
   {
@@ -16,7 +17,7 @@ const staticPrograms = [
     intake: 60,
     description: "Comprehensive IT education with practical skills in programming, web development, and software engineering",
     department: { name: "Computer Science" },
-    color: "border-l-[#003B7C]",
+    color: "border-l-[#0D9488]",
     icon: "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
   },
   {
@@ -26,7 +27,7 @@ const staticPrograms = [
     intake: 60,
     description: "Business management program focusing on entrepreneurship, marketing, finance, and leadership",
     department: { name: "Management" },
-    color: "border-l-[#E67E22]",
+    color: "border-l-[#4F46E5]",
     icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
   },
   {
@@ -36,7 +37,7 @@ const staticPrograms = [
     intake: 60,
     description: "Comprehensive commerce education covering accounting, taxation, finance, and business law",
     department: { name: "Commerce" },
-    color: "border-l-[#10B981]",
+    color: "border-l-[#F59E0B]",
     icon: "M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l3.5-2 3.5 2 3.5-2 3.5 2zM10 8.5a.5.5 0 11-1 0 .5.5 0 011 0zm5 5a.5.5 0 11-1 0 .5.5 0 011 0z",
   },
   {
@@ -46,7 +47,7 @@ const staticPrograms = [
     intake: 40,
     description: "Advanced commerce studies with specialization in accounting, finance, and business research",
     department: { name: "Commerce" },
-    color: "border-l-[#8B5CF6]",
+    color: "border-l-[#14B8A6]",
     icon: "M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222",
   },
 ];
@@ -80,7 +81,7 @@ async function getHomeData() {
   }
 }
 
-const colors = ["border-l-[#003B7C]", "border-l-[#E67E22]", "border-l-[#10B981]", "border-l-[#8B5CF6]"];
+const colors = ["border-l-[#0D9488]", "border-l-[#4F46E5]", "border-l-[#F59E0B]", "border-l-[#14B8A6]"];
 const icons = [
   "M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z",
   "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
@@ -142,49 +143,8 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Why Choose Us */}
-      <section className="py-24 px-6">
-        <div className="container mx-auto max-w-6xl">
-          <SectionHeader
-            badge="WHY CHOOSE US"
-            title="Excellence in Education Since 2009"
-            subtitle="Join a community committed to academic excellence and holistic development"
-          />
-
-          <GsapReveal stagger staggerSelector=".why-card" staggerAmount={0.15} className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: "M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z",
-                title: "NAAC A Grade Accredited",
-                description: "Recognized for academic excellence by National Assessment and Accreditation Council",
-                accent: "bg-primary/10 text-primary",
-              },
-              {
-                icon: "M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4",
-                title: "Modern Infrastructure",
-                description: "80+ computers, well-equipped labs, library with 3000+ books and digital resources",
-                accent: "bg-accent/10 text-accent",
-              },
-              {
-                icon: "M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z",
-                title: "Holistic Development",
-                description: "Focus on overall personality development, moral values, and practical skills",
-                accent: "bg-secondary/10 text-secondary",
-              },
-            ].map((feature, i) => (
-              <GsapCard key={i} className="why-card premium-card p-8 h-full cursor-pointer">
-                <div className={`card-icon w-16 h-16 ${feature.accent} rounded-2xl flex items-center justify-center mb-6`}>
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d={feature.icon} />
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-foreground font-serif">{feature.title}</h3>
-                <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
-              </GsapCard>
-            ))}
-          </GsapReveal>
-        </div>
-      </section>
+      {/* Why Choose Us — Bento Grid */}
+      <WhyChooseUs />
 
       {/* Programs Section */}
       <section className="py-24 px-6 bg-gradient-to-b from-muted/50 to-background relative">
@@ -257,7 +217,7 @@ export default async function HomePage() {
               <ScrollReveal key={event.slug} delay={i * 0.1}>
                 <div className="premium-card overflow-hidden h-full flex flex-col">
                   <div className="bg-gradient-to-br from-primary to-primary-dark text-white p-5 text-center relative">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(230,126,34,0.15),transparent_60%)]" />
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(245,158,11,0.15),transparent_60%)]" />
                     <div className="relative">
                       <div className="text-3xl font-bold font-serif">
                         {new Date(event.eventDate).getDate()}
@@ -307,9 +267,9 @@ export default async function HomePage() {
       <section className="relative py-24 px-6">
         <div className="container mx-auto max-w-4xl">
           <ScrollReveal>
-            <div className="relative bg-gradient-to-br from-primary via-primary-dark to-[#001a3a] text-white text-center rounded-3xl p-12 md:p-20 overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(230,126,34,0.15),transparent_50%)]" />
-              <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl" />
+            <div className="relative bg-gradient-to-br from-[#0F172A] via-[#0D9488]/90 to-[#0F172A] text-white text-center rounded-3xl p-12 md:p-20 overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,rgba(79,70,229,0.15),transparent_50%)]" />
+              <div className="absolute top-0 right-0 w-64 h-64 bg-[#F59E0B]/10 rounded-full blur-3xl" />
               <div className="relative">
                 <h2 className="text-display mb-6">
                   Ready to Begin<br />Your Journey?
@@ -320,7 +280,7 @@ export default async function HomePage() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link
                     href="/admission"
-                    className="px-10 py-4 bg-accent text-white rounded-xl font-bold hover:bg-accent-dark shadow-[0_8px_30px_rgba(230,126,34,0.3)] hover:shadow-[0_12px_40px_rgba(230,126,34,0.4)] transition-all duration-300 hover:-translate-y-1"
+                    className="px-10 py-4 bg-gradient-to-r from-[#0D9488] to-[#14B8A6] text-white rounded-2xl font-bold shadow-[0_8px_30px_rgba(13,148,136,0.3)] hover:shadow-[0_12px_40px_rgba(13,148,136,0.4)] transition-transform duration-200 hover:-translate-y-1"
                   >
                     Apply Now
                   </Link>
